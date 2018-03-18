@@ -7,6 +7,20 @@ import 'strings.dart';
 
 void main() => runApp(new GHFlutterApp());
 
+class Member {
+  final String login;
+  final String avatarUrl;
+
+  Member(this.login, this.avatarUrl) {
+    if (login == null) {
+      throw new ArgumentError("login member cannot be null. " "Received: '$login'");
+    }
+    if (avatarUrl == null) {
+      throw new ArgumentError("avatarUrl member cannot be null. " "Received: '$avatarUrl'");
+    }
+  }
+}
+
 class GHFlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -102,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GHFlutterState extends State<GHFlutter> {
-  var _members = [];
+  var _members = <Member>[];
 
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
@@ -110,7 +124,11 @@ class GHFlutterState extends State<GHFlutter> {
     return new Padding(
       padding: const EdgeInsets.all(16.0),
       child: new ListTile(
-        title: new Text("${_members[i]["login"]}", style: _biggerFont)
+        title: new Text("${_members[i].login}", style: _biggerFont),
+        leading: new CircleAvatar(
+          backgroundColor: Colors.green,
+          backgroundImage: new NetworkImage(_members[i].avatarUrl),
+        ),
       )
     );
   }
@@ -137,10 +155,13 @@ class GHFlutterState extends State<GHFlutter> {
     String dataURL = "https://api.github.com/orgs/raywenderlich/members";
     http.Response response = await http.get(dataURL);
     setState(() {
-      _members = JSON.decode(response.body);
-    });
+      final memberJSON = JSON.decode(response.body);
 
-    
+      for (var memberJSON in memberJSON) {
+        final member = new Member(memberJSON["login"], memberJSON["avatar_url"]);
+        _members.add(member);
+      }
+    });
   }
 
   @override
