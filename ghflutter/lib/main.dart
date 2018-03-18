@@ -119,10 +119,13 @@ class GHFlutterState extends State<GHFlutter> {
         title: new Text(Strings.appTitle),
       ),
       body: new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: _members.length,
+      itemCount: _members.length * 2,
       itemBuilder: (BuildContext context, int position) {
-        return _buildRow(position);
+        if (position.isOdd) return new Divider();
+
+        final index = position ~/ 2;
+
+        return _buildRow(index);
       }),
     );
   }
