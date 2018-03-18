@@ -107,8 +107,11 @@ class GHFlutterState extends State<GHFlutter> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildRow(int i) {
-    return new ListTile(
-      title: new Text("${_members[i]["login"]}", style: _biggerFont)
+    return new Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: new ListTile(
+        title: new Text("${_members[i]["login"]}", style: _biggerFont)
+      )
     );
   }
 
