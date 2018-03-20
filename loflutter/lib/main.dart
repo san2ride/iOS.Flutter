@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'image.dart';
+
 void main() => runApp(new LayoutFlutter());
 
 class LayoutFlutter extends StatelessWidget {
