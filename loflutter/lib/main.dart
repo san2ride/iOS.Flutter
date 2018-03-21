@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'image.dart';
-
 void main() => runApp(new LayoutFlutter());
 
 class LayoutFlutter extends StatelessWidget {
@@ -28,7 +26,6 @@ class LayoutFlutter extends StatelessWidget {
                   'Kandersteg, Switzerland',
                   style: new TextStyle(
                     color: Colors.grey[500],
-
                   ),
                 ),
               ],
